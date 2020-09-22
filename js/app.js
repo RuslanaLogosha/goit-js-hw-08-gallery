@@ -25,4 +25,17 @@ function addImageItems(galleryItems) {
     .join("");
 }
 
-console.log(galleryItemsMarkup);
+const divForModal = document.querySelector(".lightbox");
+const modalImage = document.querySelector(".lightbox__image");
+
+function getBigImageUrl(event) {
+  event.preventDefault();
+  modalImage.src = event.target.dataset.source;
+}
+
+listOfgalleryItems.addEventListener("click", onOpenModal);
+
+function onOpenModal(event) {
+  divForModal.classList.add("is-open");
+  getBigImageUrl(event);
+}
