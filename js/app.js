@@ -44,12 +44,13 @@ function onOpenModal(event) {
   window.addEventListener("keydown", onEscPress);
   divForModal.classList.add("is-open");
   getBigImageUrl(event);
+  //   console.log(modalImage.src);
 }
 
 function onCloseModal(event) {
   window.removeEventListener("keydown", onEscPress);
   divForModal.classList.remove("is-open");
-  getBigImageUrl(event);
+  //   getBigImageUrl(event);
   modalImage.src = "";
 }
 
