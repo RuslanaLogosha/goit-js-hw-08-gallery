@@ -1,4 +1,4 @@
-import galleryItems from "/js/gallery-items.js";
+import galleryItems from "./gallery-items.js";
 
 const listOfgalleryItems = document.querySelector(".js-gallery");
 const galleryItemsMarkup = addImageItems(galleryItems);
@@ -37,6 +37,10 @@ function addImageItems(galleryItems) {
 
 function getBigImageUrl(event) {
   event.preventDefault();
+  //   if (!evt.target.classList.contains("gallery__image")) {
+  //     return;
+  //   }
+
   modalImage.src = event.target.dataset.source;
 }
 
@@ -45,6 +49,7 @@ function onOpenModal(event) {
   divForModal.classList.add("is-open");
   getBigImageUrl(event);
   //   console.log(modalImage.src);
+  window.addEventListener("keydown", slideImages);
 }
 
 function onCloseModal(event) {
@@ -66,3 +71,24 @@ function onEscPress(event) {
     onCloseModal();
   }
 }
+
+// function slideImages(event) {
+//   const slideRight = event.code === "ArrowRight";
+//   //   console.log(slideRight);
+//   console.log(galleryItems.length);
+//   //   console.log(galleryItems[0].original);
+//   if (slideRight) {
+//     // for (let i; i < galleryItems.length; i += 1) {
+//     //   modalImage.src = galleryItems[i + 1].original;
+//     //   //    console.log(galleryItems[i].original);
+//     // }
+//     for (let i; i < galleryItems.length; i += 1) {
+//       console.log(indexOf(galleryItems[i]));
+//     }
+
+//     // galleryItems.map((galleryItem) => console.log(galleryItem.original));
+//     // console.log(indexOf(galleryItems));
+//   }
+// }
+// console.log(galleryItems[0].original);
+// ///////////////////////////////////////////////////////////////////////////////////////
