@@ -49,7 +49,7 @@ function onOpenModal(event) {
   divForModal.classList.add("is-open");
   getBigImageUrl(event);
   //   console.log(modalImage.src);
-  window.addEventListener("keydown", slideImages);
+  //   window.addEventListener("keydown", slideImages);
 }
 
 function onCloseModal(event) {
