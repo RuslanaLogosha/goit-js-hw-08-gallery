@@ -74,9 +74,7 @@ function onEscPress(event) {
 
 // function slideImages(event) {
 //   const slideRight = event.code === "ArrowRight";
-//   //   console.log(slideRight);
 //   console.log(galleryItems.length);
-//   //   console.log(galleryItems[0].original);
 //   if (slideRight) {
 //     // for (let i; i < galleryItems.length; i += 1) {
 //     //   modalImage.src = galleryItems[i + 1].original;
