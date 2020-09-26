@@ -37,9 +37,9 @@ function addImageItems(galleryItems) {
 
 function getBigImageUrl(event) {
   event.preventDefault();
-  //   if (!evt.target.classList.contains("gallery__image")) {
-  //     return;
-  //   }
+  if (!event.target.classList.contains("gallery__image")) {
+    return;
+  }
 
   modalImage.src = event.target.dataset.source;
 }
@@ -48,14 +48,12 @@ function onOpenModal(event) {
   window.addEventListener("keydown", onEscPress);
   divForModal.classList.add("is-open");
   getBigImageUrl(event);
-  //   console.log(modalImage.src);
-  //   window.addEventListener("keydown", slideImages);
+  window.addEventListener("keydown", slideImages);
 }
 
 function onCloseModal(event) {
   window.removeEventListener("keydown", onEscPress);
   divForModal.classList.remove("is-open");
-  //   getBigImageUrl(event);
   modalImage.src = "";
 }
 
@@ -71,22 +69,44 @@ function onEscPress(event) {
     onCloseModal();
   }
 }
+//first failed option
+// function slideImages(event) {
+//   const slideRight = event.code === "ArrowRight";
+//   const slideLeft = event.code === "ArrowLeft";
+//   let images = [];
+//   galleryItems.forEach((galleryItem) => {
+//     images.push(galleryItem.original);
+//   });
 
+//   for (let i = 0; i < images.length - 1; i += 1) {
+//     if (slideRight) {
+//       if (images.indexOf(images[i]) === i) {
+//         let counter = i + 1;
+//         if (counter <= images.length) {
+//           modalImage.src = images[i + 1];
+//         } else {
+//           counter %= images.length;
+//           modalImage.src = images[i + 1];
+//         }
+//       }
+//     }
+//   }
+// }
+
+// ///////////////////////////////////////////////////////////////////////////////////////
+
+//second failed option
 // function slideImages(event) {
 //   const slideRight = event.code === "ArrowRight";
 //   console.log(galleryItems.length);
-//   if (slideRight) {
-//     // for (let i; i < galleryItems.length; i += 1) {
-//     //   modalImage.src = galleryItems[i + 1].original;
-//     //   //    console.log(galleryItems[i].original);
-//     // }
-//     for (let i; i < galleryItems.length; i += 1) {
-//       console.log(indexOf(galleryItems[i]));
-//     }
 
-//     // galleryItems.map((galleryItem) => console.log(galleryItem.original));
-//     // console.log(indexOf(galleryItems));
+//   for (let i = 0; i < galleryItems.length; i += 1) {
+//     if (slideRight) {
+//       let indexOfCurrentImg = galleryItems.indexOf(galleryItems[i]);
+//       let indexOfNextImg = galleryItems.indexOf(galleryItems[i]) + 1;
+//       indexOfNextImg %= galleryItems.length;
+//       modalImage.src = galleryItems[indexOfNextImg].original;
+//       console.log(modalImage.src);
+//     }
 //   }
 // }
-// console.log(galleryItems[0].original);
-// ///////////////////////////////////////////////////////////////////////////////////////
