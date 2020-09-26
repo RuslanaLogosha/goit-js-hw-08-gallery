@@ -80,20 +80,33 @@ function slideImages(event) {
   const slideLeft = event.code === "ArrowLeft";
   const parentLiElem = document.querySelector(".gallery__item.img-in-modal");
 
-  if (slideRight) {
-    const nextSibl = parentLiElem.nextElementSibling;
-    nextSibl.classList.add("img-in-modal");
+  function replaceImgSrc(elem) {
+    elem.classList.add("img-in-modal");
     parentLiElem.classList.remove("img-in-modal");
-    const nextSiblImage = nextSibl.querySelector(".gallery__image");
+    const nextSiblImage = elem.querySelector(".gallery__image");
     modalImage.src = nextSiblImage.dataset.source;
   }
 
+  if (slideRight) {
+    if (parentLiElem === listOfgalleryItems.lastElementChild) {
+      let nextSiblOutOfRange = parentLiElem.nextElementSibling;
+      nextSiblOutOfRange = listOfgalleryItems.firstElementChild;
+      replaceImgSrc(nextSiblOutOfRange);
+    } else {
+      let nextSibl = parentLiElem.nextElementSibling;
+      replaceImgSrc(nextSibl);
+    }
+  }
+
   if (slideLeft) {
-    const prevSibl = parentLiElem.previousElementSibling;
-    prevSibl.classList.add("img-in-modal");
-    parentLiElem.classList.remove("img-in-modal");
-    const prevSiblImage = prevSibl.querySelector(".gallery__image");
-    modalImage.src = prevSiblImage.dataset.source;
+    if (parentLiElem === listOfgalleryItems.firstElementChild) {
+      let prevSiblOutOfRange = parentLiElem.previousElementSibling;
+      prevSiblOutOfRange = listOfgalleryItems.lastElementChild;
+      replaceImgSrc(prevSiblOutOfRange);
+    } else {
+      let prevSibl = parentLiElem.previousElementSibling;
+      replaceImgSrc(prevSibl);
+    }
   }
 }
 
@@ -107,8 +120,12 @@ function slideImages(event) {
 
 //     if (index < galleryItems.length - 1) {
 //       index += 1;
-//       modalImage.src = galleryItems[index].original;
+//       if (index === galleryItems.length - 1) {
+//         modalImage.src = galleryItems[0].original;
+//       }
 //       modalImage.setAttribute("data-index", index);
+//       modalImage.src = galleryItems[index].original;
+//       console.log(index);
 //     }
 //   } else if (clickButton === "ArrowLeft") {
 //     let { index } = modalImage.dataset;
@@ -116,8 +133,14 @@ function slideImages(event) {
 
 //     if (index < galleryItems.length - 1) {
 //       index -= 1;
+//       if (index < 0) {
+//         modalImage.src = galleryItems[galleryItems.length - 1].original;
+//         console.log(index);
+//       }
 //       modalImage.src = galleryItems[index].original;
 //       modalImage.setAttribute("data-index", index);
+
+//       console.log(index);
 //     }
 //   }
 // }
