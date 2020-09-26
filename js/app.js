@@ -16,7 +16,7 @@ overlaySpaceEl.addEventListener("click", onOverlayClick);
 
 function addImageItems(galleryItems) {
   return galleryItems
-    .map(({ original, preview, description }) => {
+    .map(({ original, preview, description }, i) => {
       return `<li class="gallery__item">
           <a
               class="gallery__link"
@@ -26,6 +26,7 @@ function addImageItems(galleryItems) {
               class="gallery__image"
               src="${preview}"
               data-source="${original}"
+              data-index="${i}"
               alt="${description}"
             />
           </a>
@@ -37,17 +38,20 @@ function addImageItems(galleryItems) {
 
 function getBigImageUrl(event) {
   event.preventDefault();
-  if (!event.target.classList.contains("gallery__image")) {
-    return;
-  }
 
-  modalImage.src = event.target.dataset.source;
+  const { source, index } = event.target.dataset;
+
+  modalImage.src = source;
+  modalImage.setAttribute("data-index", index);
 }
 
 function onOpenModal(event) {
   window.addEventListener("keydown", onEscPress);
   divForModal.classList.add("is-open");
   getBigImageUrl(event);
+  let parent = event.target.closest("li");
+  parent.classList.add("img-in-modal");
+
   window.addEventListener("keydown", slideImages);
 }
 
@@ -69,6 +73,55 @@ function onEscPress(event) {
     onCloseModal();
   }
 }
+
+//1st working option
+function slideImages(event) {
+  const slideRight = event.code === "ArrowRight";
+  const slideLeft = event.code === "ArrowLeft";
+  const parentLiElem = document.querySelector(".gallery__item.img-in-modal");
+
+  if (slideRight) {
+    const nextSibl = parentLiElem.nextElementSibling;
+    nextSibl.classList.add("img-in-modal");
+    parentLiElem.classList.remove("img-in-modal");
+    const nextSiblImage = nextSibl.querySelector(".gallery__image");
+    modalImage.src = nextSiblImage.dataset.source;
+  }
+
+  if (slideLeft) {
+    const prevSibl = parentLiElem.previousElementSibling;
+    prevSibl.classList.add("img-in-modal");
+    parentLiElem.classList.remove("img-in-modal");
+    const prevSiblImage = prevSibl.querySelector(".gallery__image");
+    modalImage.src = prevSiblImage.dataset.source;
+  }
+}
+
+//2nd working option
+// function slideImages(event) {
+//   const { code: clickButton } = event;
+
+//   if (clickButton === "ArrowRight") {
+//     let { index } = modalImage.dataset;
+//     index = Number(index);
+
+//     if (index < galleryItems.length - 1) {
+//       index += 1;
+//       modalImage.src = galleryItems[index].original;
+//       modalImage.setAttribute("data-index", index);
+//     }
+//   } else if (clickButton === "ArrowLeft") {
+//     let { index } = modalImage.dataset;
+//     index = Number(index);
+
+//     if (index < galleryItems.length - 1) {
+//       index -= 1;
+//       modalImage.src = galleryItems[index].original;
+//       modalImage.setAttribute("data-index", index);
+//     }
+//   }
+// }
+
 //first failed option
 // function slideImages(event) {
 //   const slideRight = event.code === "ArrowRight";
